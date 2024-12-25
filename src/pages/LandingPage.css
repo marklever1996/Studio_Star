@@ -1,0 +1,117 @@
+main {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    background: #000;
+}
+
+.collage-container {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.collage {
+    position: absolute;
+    width: calc(100% / 3 - 10px);
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.collage:nth-child(1) { left: 0; }
+.collage:nth-child(2) { left: calc(100% / 3); }
+.collage:nth-child(3) { left: calc((100% / 3) * 2); }
+
+.collage .photo-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.collage .photo {
+    padding: 5px;
+    background-color: #000;
+}
+
+.collage .photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.logo-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.logo-overlay img {
+    height: 150px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+@keyframes scroll1 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+}
+
+@keyframes scroll2 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+}
+
+@keyframes scroll3 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+}
+
+#collage1 {
+    animation: scroll1 650s linear infinite;
+}
+
+#collage2 {
+    animation: scroll2 640s linear infinite;
+}
+
+#collage3 {
+    animation: scroll3 660s linear infinite;
+}
+
+/* Media query voor mobile devices */
+@media (max-width: 768px) {
+    .collage {
+        width: 50%; /* Twee kolommen op mobiel */
+    }
+
+    .collage:nth-child(1) { left: 0; }
+    .collage:nth-child(2) { left: 50%; }
+    .collage:nth-child(3) { display: none; } /* Verberg de derde kolom op mobiel */
+
+    /* Pas de animatie snelheden aan voor twee kolommen */
+    #collage1 {
+        animation: scroll1 280s linear infinite;
+    }
+
+    #collage2 {
+        animation: scroll2 290s linear infinite;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .collage {
+        padding: 3px;
+    }
+
+    .collage .photo {
+        padding: 3px;
+    }
+
+    .logo-overlay img {
+        height: 100px;
+    }
+}
