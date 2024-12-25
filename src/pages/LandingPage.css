@@ -70,15 +70,15 @@ main {
 }
 
 #collage1 {
-    animation: scroll1 650s linear infinite;
+    animation: scroll1 410s linear infinite;
 }
 
 #collage2 {
-    animation: scroll2 640s linear infinite;
+    animation: scroll2 420s linear infinite;
 }
 
 #collage3 {
-    animation: scroll3 660s linear infinite;
+    animation: scroll3 415s linear infinite;
 }
 
 /* Media query voor mobile devices */

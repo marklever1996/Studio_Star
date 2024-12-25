@@ -21,7 +21,7 @@ header:hover {
 }
 
 .logo img {
-    height: 70px;
+    height: 75px;
     transition: transform 0.3s ease;
 }
 
@@ -187,4 +187,178 @@ header:hover {
         display: block;
         transform: translateY(0);
     }
+} 
+
+/* Actieve link styling */
+.desktop-nav a.active {
+    color: #cb7e35;
+}
+
+/* Dropdown styling */
+.dropdown {
+    position: relative;
+}
+
+/* Pijltje naast Portfolio */
+.dropdown > a::after {
+    content: '▾';
+    margin-left: 5px;
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+/* Verwijder de hover van de link en verplaats naar het li element */
+.dropdown:hover > a::after {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(0, 0, 0, 0.98);
+    min-width: 250px;
+    padding: 0.5rem;
+    border-radius: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    /* Voeg padding toe aan de bovenkant voor betere hover area */
+    padding-top: 15px;
+    /* Verplaats het menu omhoog */
+    margin-top: -15px;
+}
+
+/* Update de hover state */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Voeg een onzichtbare hover area toe */
+.dropdown::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: transparent;
+}
+
+/* Update het pijltje positie */
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: 10px; /* Aangepast van -5px */
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.98);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Zorg ervoor dat het menu zichtbaar blijft tijdens hover */
+.dropdown-menu:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Voeg een transitie toe voor de hover state */
+.dropdown-menu li a {
+    transition: all 0.2s ease;
+}
+
+.dropdown-menu li a:hover {
+    background: rgba(203, 126, 53, 0.15);
+    color: #cb7e35;
+    transform: translateX(3px);
+}
+
+/* Divider tussen menu items */
+.dropdown-menu li:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Mobiele menu aanpassingen */
+.mobile-menu .dropdown-menu {
+    position: static;
+    background: transparent;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    backdrop-filter: none;
+}
+
+.mobile-menu .dropdown-menu::before {
+    display: none;
+}
+
+.mobile-menu .dropdown-menu a {
+    padding: 0.5rem 1rem;
+    font-size: 14px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu .dropdown-menu a:hover {
+    transform: none;
+}
+
+.mobile-menu .dropdown-menu li:not(:last-child) {
+    border-bottom: none;
+} 
+
+/* Mobiele dropdown styling */
+.mobile-dropdown {
+    position: relative;
+}
+
+.mobile-dropdown > a {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-dropdown i {
+    margin-left: 8px;
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu .dropdown-menu {
+    margin-top: 0.5rem;
+}
+
+.mobile-menu .dropdown-menu a {
+    padding-left: 2rem;
+    position: relative;
+}
+
+.mobile-menu .dropdown-menu a::before {
+    content: '';
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    width: 6px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Actieve link styling voor mobiel */
+.mobile-menu a.active {
+    color: #cb7e35;
 } 

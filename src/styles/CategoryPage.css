@@ -1,0 +1,148 @@
+.category-container {
+    padding-top: 95px;
+    min-height: 100vh;
+    background: #000;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    padding: 1.5rem;
+    padding-top: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.image-container:hover img {
+    transform: scale(1.05);
+}
+
+/* Lightbox styling */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 1rem;
+}
+
+.prev-button {
+    left: 20px;
+}
+
+.next-button {
+    right: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .category-grid {
+        grid-template-columns: 1fr;
+        padding: 0.75rem;
+        gap: 0.5rem;
+    }
+}
+
+.category-title {
+    position: relative;
+    text-align: center;
+    padding: 1rem 0 0.5rem;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+}
+
+.category-title h1 {
+    font-family: 'Italiana', serif;
+    font-size: 4.5rem;
+    color: white;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 400;
+    opacity: 0.9;
+    position: relative;
+}
+
+.category-title h1::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    width: 60px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-50%);
+}
+
+/* Subtiele animatie bij hover */
+.category-title h1:hover::after {
+    width: 120px;
+    transition: width 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .category-title {
+        padding: 1rem 0 0.5rem;
+    }
+
+    .category-title h1 {
+        font-size: 2.5rem;
+        letter-spacing: 0.15em;
+    }
+}
