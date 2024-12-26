@@ -8,7 +8,7 @@ import portraitsImage from '../assets/images/image00026.jpeg';
 import editorialImage from '../assets/images/image00016.jpeg';
 import fineArtsImage from '../assets/images/image00011.jpeg';
 import weddingImage from '../assets/images/image00008.jpeg';
-import headshotsImage from '../assets/images/selfie2.jpg';
+import headshotsImage from '../assets/images/image00034.jpeg';
 import printsImage from '../assets/images/image00041.jpeg';
 import commercialImage from '../assets/images/image00045.jpeg';
 
@@ -44,7 +44,7 @@ const portfolioCategories = [
         gridClass: 'left-two-thirds'
     },
     {
-        id: 'headshots',
+        id: 'professional',
         title: 'Professional Headshots',
         image: headshotsImage,
         gridClass: 'left-one-third'
@@ -64,13 +64,20 @@ const portfolioCategories = [
 ];
 
 const PortfolioPage = () => {
+    // Groepeer de categorieën in specifieke rijen
+    const rows = [
+        [portfolioCategories[0], portfolioCategories[1]], // Beauty & Portraits
+        [portfolioCategories[2], portfolioCategories[3]], // Editorial & Fine Arts
+        [portfolioCategories[4], portfolioCategories[5]], // Wedding & Headshots
+        [portfolioCategories[6], portfolioCategories[7]]  // Prints & Commercial
+    ];
+
     return (
         <div className="portfolio-container">
             <div className="container">
-                {/* Groepeer categorieën per twee voor de rijen */}
-                {[0, 2, 4, 6].map((index) => (
+                {rows.map((row, index) => (
                     <div className="row" key={index}>
-                        {portfolioCategories.slice(index, index + 2).map((category) => (
+                        {row.map((category) => (
                             <Link
                                 key={category.id}
                                 to={`/${category.id}`}

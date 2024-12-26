@@ -11,6 +11,12 @@ import AboutMe from './pages/AboutMe';
 import ContactPage from './pages/ContactPage';
 import Beauty from './components/categories/Beauty';
 import Portraits from './components/categories/Portraits';
+import Editorial from './components/categories/Editorial';
+import FineArts from './components/categories/FineArts';
+import Wedding from './components/categories/Wedding';
+import Professional from './components/categories/Professional';
+import Prints from './components/categories/Prints';
+import Commercial from './components/categories/Commercial';
 // Importeer hier de andere categorie componenten
 
 function App() {
@@ -27,7 +33,12 @@ function App() {
           <Route path="/about" element={<AboutMe />} />
           <Route path="/beauty" element={<Beauty />} />
           <Route path="/portraits" element={<Portraits />} />
-          {/* Voeg hier de andere categorie routes toe */}
+          <Route path="/editorial" element={<Editorial />} />
+          <Route path="/finearts" element={<FineArts />} />
+          <Route path="/wedding" element={<Wedding />} />
+          <Route path="/professional" element={<Professional />} />
+          <Route path="/prints" element={<Prints />} />
+          <Route path="/commercial" element={<Commercial />} />
         </Routes>
       </AnimatePresence>
       <Footer />

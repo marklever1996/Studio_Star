@@ -1,7 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaInstagram, FaEnvelope, FaPhone, FaPaperPlane } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 import './ContactPage.css';
+
+const PUBLIC_KEY = "M2c2z4liNUif_gAAl";  
 
 const ContactPage = () => {
     const [formStatus, setFormStatus] = useState({ type: '', message: '' });
@@ -12,14 +15,26 @@ const ContactPage = () => {
         setFormStatus({ type: 'loading', message: 'Sending...' });
 
         try {
-            // Email logic here
-            await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate sending
+            await emailjs.sendForm(
+                'service_fd7h5h8',
+                'template_kohf6co',
+                formRef.current,
+                PUBLIC_KEY
+            );
+
             setFormStatus({ 
                 type: 'success', 
                 message: 'Thank you for your message! I will get back to you as soon as possible.' 
             });
+            
             formRef.current.reset();
+            
+            setTimeout(() => {
+                setFormStatus({ type: '', message: '' });
+            }, 5000);
+
         } catch (error) {
+            console.error('EmailJS error:', error);
             setFormStatus({ 
                 type: 'error', 
                 message: 'Something went wrong. Please try again later.' 
@@ -97,7 +112,7 @@ const ContactPage = () => {
                         <div className="form-group">
                             <input 
                                 type="text" 
-                                name="name" 
+                                name="user_name" 
                                 required 
                                 placeholder="Name"
                             />
@@ -105,7 +120,7 @@ const ContactPage = () => {
                         <div className="form-group">
                             <input 
                                 type="email" 
-                                name="email" 
+                                name="user_email" 
                                 required 
                                 placeholder="Email"
                             />
@@ -113,9 +128,9 @@ const ContactPage = () => {
                         <div className="form-group">
                             <input 
                                 type="text" 
-                                name="subject" 
+                                name="phone" 
                                 required 
-                                placeholder="Subject"
+                                placeholder="Phone"
                             />
                         </div>
                         <div className="form-group">

@@ -7,8 +7,10 @@ header {
     position: fixed;
     width: 100%;
     top: 0;
+    left: 0;
     z-index: 1000;
     transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 header:hover {
@@ -23,6 +25,8 @@ header:hover {
 .logo img {
     height: 75px;
     transition: transform 0.3s ease;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
 .logo img:hover {
@@ -32,7 +36,8 @@ header:hover {
 .desktop-nav {
     flex-grow: 1;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    padding-right: 2rem;
 }
 
 .desktop-nav ul {
@@ -41,6 +46,7 @@ header:hover {
     gap: 3rem;
     margin: 0;
     padding: 0;
+    align-items: center;
 }
 
 .desktop-nav ul li a {
@@ -77,14 +83,14 @@ header:hover {
 .social-media {
     display: flex;
     align-items: center;
-    margin-left: 20px;
+    margin-left: 0;
 }
 
 .social-media a {
     color: grey;
     font-size: 30px;
     text-decoration: none;
-    margin-left: 35px;
+    margin-left: 20px;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
@@ -105,9 +111,12 @@ header:hover {
     background: none;
     border: none;
     color: #fff;
-    font-size: 24px;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: color 0.3s ease;
+    padding: 0.5rem;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    margin-right: -0.5rem;
 }
 
 .hamburger:hover {
@@ -117,19 +126,22 @@ header:hover {
 .mobile-menu {
     display: none;
     position: fixed;
-    top: 90px;
+    top: 0;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    padding: 20px;
-    backdrop-filter: blur(10px);
-    transform: translateY(-100%);
-    transition: transform 0.3s ease;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.98);
+    padding: 5rem 2rem 2rem;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
 }
 
 .mobile-menu.active {
-    transform: translateY(0);
-    display: block;
+    opacity: 1;
+    visibility: visible;
 }
 
 .mobile-menu ul {
@@ -138,40 +150,96 @@ header:hover {
     margin: 0;
 }
 
-.mobile-menu ul li {
-    margin: 20px 0;
-    text-align: center;
+.mobile-menu li {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
 }
 
-.mobile-menu ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: color 0.3s ease;
+.mobile-menu.active li {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mobile-menu li:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu li:nth-child(2) { transition-delay: 0.2s; }
+.mobile-menu li:nth-child(3) { transition-delay: 0.3s; }
+.mobile-menu li:nth-child(4) { transition-delay: 0.4s; }
+
+.mobile-menu a {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-between;
+    color: #fff !important;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    padding: 1rem 0;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
 }
 
-.mobile-menu ul li a i {
-    font-size: 24px;
+.mobile-menu a:hover,
+.mobile-menu a:active,
+.mobile-menu a:focus {
+    color: var(--color-accent) !important;
 }
 
-.mobile-menu ul li a:hover {
-    color: #cc5500;
+/* Mobile dropdown styling */
+.mobile-dropdown {
+    position: relative;
+    width: 100%;
 }
 
+.mobile-dropdown > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: #fff !important;
+}
+
+.mobile-dropdown .dropdown-menu {
+    position: relative;
+    display: none;
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.mobile-dropdown .dropdown-menu.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mobile-dropdown .dropdown-menu a {
+    font-size: 1.1rem;
+    padding: 0.75rem 0;
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.mobile-dropdown .dropdown-menu a:hover {
+    color: var(--color-accent) !important;
+}
+
+/* Hamburger icon animatie */
+.hamburger i {
+    transition: transform 0.3s ease;
+}
+
+.hamburger.active i {
+    transform: rotate(90deg);
+}
+
+/* Media query voor mobiele weergave */
 @media (max-width: 768px) {
-    header {
-        padding: 15px 20px;
-        background: rgba(0, 0, 0, 0.95);
-    }
-
-    .desktop-nav, 
-    .social-media {
+    .desktop-nav {
         display: none;
     }
 
@@ -179,15 +247,59 @@ header:hover {
         display: block;
     }
 
-    .logo img {
-        height: 60px;
+    .mobile-menu {
+        display: block;
     }
 
-    .mobile-menu.active {
-        display: block;
-        transform: translateY(0);
+    /* Logo aanpassing voor mobiel */
+    .logo img {
+        height: 50px;
     }
-} 
+
+    /* Header aanpassing voor mobiel */
+    header {
+        padding: 0.75rem 1rem;
+        background: rgba(0, 0, 0, 0.9);
+    }
+
+    /* Verberg desktop social media op mobiel */
+    .social-media {
+        display: none;
+    }
+
+    /* Mobile menu links styling */
+    .mobile-menu a {
+        padding: 1rem 0;
+        font-size: 1.25rem;
+        opacity: 1;
+        text-transform: uppercase;
+    }
+
+    .mobile-menu .dropdown-menu a {
+        font-size: 1.1rem;
+        padding: 0.75rem 0;
+        text-transform: uppercase;
+    }
+
+    .mobile-menu {
+        padding-top: 6rem;
+    }
+
+    .mobile-menu a {
+        opacity: 1;
+    }
+
+    /* Pas de hamburger positie aan voor de nieuwe logo grootte */
+    .hamburger {
+        margin-right: -0.25rem;
+        padding: 0.75rem;
+    }
+}
+
+/* Voorkom scrollen wanneer menu open is */
+body.menu-open {
+    overflow: hidden;
+}
 
 /* Actieve link styling */
 .desktop-nav a.active {
@@ -199,72 +311,76 @@ header:hover {
     position: relative;
 }
 
-/* Pijltje naast Portfolio */
-.dropdown > a::after {
-    content: '▾';
-    margin-left: 5px;
-    font-size: 12px;
-    transition: transform 0.3s ease;
-}
-
-/* Verwijder de hover van de link en verplaats naar het li element */
-.dropdown:hover > a::after {
-    transform: rotate(180deg);
-}
-
+/* Dropdown menu box */
 .dropdown-menu {
     position: absolute;
-    top: calc(100% + 15px);
+    top: 100%;
     left: 50%;
-    transform: translateX(-50%) translateY(10px);
+    transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.98);
     min-width: 250px;
-    padding: 0.5rem;
+    padding: 0.5rem 0;
+    margin-top: 1rem;
     border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 
-        0 4px 20px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.1);
-    /* Voeg padding toe aan de bovenkant voor betere hover area */
-    padding-top: 15px;
-    /* Verplaats het menu omhoog */
-    margin-top: -15px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Update de hover state */
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 16px;
+    height: 16px;
+    background: rgba(0, 0, 0, 0.98);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: transparent;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.5rem 1.5rem;
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(203, 126, 53, 0.15);
+    color: #cb7e35;
+}
+
+.dropdown-menu a:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Toon menu op hover */
 .dropdown:hover .dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
-}
-
-/* Voeg een onzichtbare hover area toe */
-.dropdown::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 0;
-    width: 100%;
-    height: 15px;
-    background: transparent;
-}
-
-/* Update het pijltje positie */
-.dropdown-menu::before {
-    content: '';
-    position: absolute;
-    top: 10px; /* Aangepast van -5px */
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    width: 10px;
-    height: 10px;
-    background: rgba(0, 0, 0, 0.98);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Zorg ervoor dat het menu zichtbaar blijft tijdens hover */
@@ -274,18 +390,7 @@ header:hover {
     transform: translateX(-50%) translateY(0);
 }
 
-/* Voeg een transitie toe voor de hover state */
-.dropdown-menu li a {
-    transition: all 0.2s ease;
-}
-
-.dropdown-menu li a:hover {
-    background: rgba(203, 126, 53, 0.15);
-    color: #cb7e35;
-    transform: translateX(3px);
-}
-
-/* Divider tussen menu items */
+/* Divider tussen items */
 .dropdown-menu li:not(:last-child) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -361,4 +466,23 @@ header:hover {
 /* Actieve link styling voor mobiel */
 .mobile-menu a.active {
     color: #cb7e35;
+} 
+
+.social-link a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.social-link svg {
+    font-size: 1.2rem;
+}
+
+/* Voor mobiel */
+.mobile-menu .social-link {
+    margin-top: 1rem;
+}
+
+.mobile-menu .social-link a {
+    justify-content: center;
 } 

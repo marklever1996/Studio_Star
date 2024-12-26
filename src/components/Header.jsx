@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { FaInstagram} from 'react-icons/fa';
 import './Header.css';
 import logo from '../assets/images/logo.png';
 
@@ -15,7 +16,7 @@ const Header = () => {
         { id: 'editorial', title: 'Editorial & Fashion' },
         { id: 'finearts', title: 'Fine Arts' },
         { id: 'wedding', title: 'Wedding' },
-        { id: 'headshots', title: 'Professional Headshots' },
+        { id: 'professional', title: 'Professional' },
         { id: 'prints', title: 'Prints' },
         { id: 'commercial', title: 'Commercial' }
     ];
@@ -33,8 +34,21 @@ const Header = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isMenuOpen]);
 
+    useEffect(() => {
+        if (isMenuOpen) {
+            document.body.classList.add('menu-open');
+        } else {
+            document.body.classList.remove('menu-open');
+        }
+
+        return () => {
+            document.body.classList.remove('menu-open');
+        };
+    }, [isMenuOpen]);
+
     const handleMobilePortfolioClick = (e) => {
         e.preventDefault();
+        e.stopPropagation();
         setIsMobileDropdownOpen(!isMobileDropdownOpen);
     };
 
@@ -60,15 +74,17 @@ const Header = () => {
                             Portfolio
                         </Link>
                         {isDropdownOpen && (
-                            <ul className="dropdown-menu">
+                            <div className="dropdown-menu">
                                 {categories.map(category => (
-                                    <li key={category.id}>
-                                        <Link to={`/${category.id}`}>
-                                            {category.title}
-                                        </Link>
-                                    </li>
+                                    <Link 
+                                        key={category.id}
+                                        to={`/${category.id}`}
+                                        onClick={() => setIsDropdownOpen(false)}
+                                    >
+                                        {category.title}
+                                    </Link>
                                 ))}
-                            </ul>
+                            </div>
                         )}
                     </li>
                     <li>
@@ -87,6 +103,15 @@ const Header = () => {
                             Contact
                         </Link>
                     </li>
+                    <li className="social-link">
+                        <a 
+                            href="https://www.instagram.com/miss_kekeli/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                        >
+                    
+                        </a>
+                    </li>
                 </ul>
             </nav>
 
@@ -101,7 +126,7 @@ const Header = () => {
             </div>
 
             <button 
-                className="hamburger"
+                className={`hamburger ${isMenuOpen ? 'active' : ''}`}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Menu"
             >
@@ -111,28 +136,29 @@ const Header = () => {
             <div className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
                 <ul>
                     <li className="mobile-dropdown">
-                        <Link 
-                            to="/portfolio" 
+                        <a 
+                            href="#"
                             onClick={handleMobilePortfolioClick}
                             className={location.pathname === '/portfolio' ? 'active' : ''}
                         >
                             Portfolio
                             <i className={`fa-solid fa-chevron-${isMobileDropdownOpen ? 'up' : 'down'}`}></i>
-                        </Link>
-                        {isMobileDropdownOpen && (
-                            <ul className="dropdown-menu">
-                                {categories.map(category => (
-                                    <li key={category.id}>
-                                        <Link 
-                                            to={`/${category.id}`}
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            {category.title}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
+                        </a>
+                        <ul className={`dropdown-menu ${isMobileDropdownOpen ? 'active' : ''}`}>
+                            {categories.map(category => (
+                                <li key={category.id}>
+                                    <Link 
+                                        to={`/${category.id}`}
+                                        onClick={() => {
+                                            setIsMenuOpen(false);
+                                            setIsMobileDropdownOpen(false);
+                                        }}
+                                    >
+                                        {category.title}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
                     </li>
                     <li>
                         <Link 
@@ -160,7 +186,6 @@ const Header = () => {
                             onClick={() => setIsMenuOpen(false)}
                         >
                             <i className="fa-brands fa-instagram"></i>
-                            <span>Instagram</span>
                         </a>
                     </li>
                 </ul>
